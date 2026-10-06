@@ -6,7 +6,7 @@ $outputDirectory = Join-Path $projectRoot 'dist'
 $manifest = Join-Path $projectRoot 'app.manifest'
 
 if (-not (Test-Path -LiteralPath $compiler)) {
-    throw '未找到 Windows 自带的 C# 编译器。'
+    throw 'The Windows .NET Framework C# compiler was not found.'
 }
 
 New-Item -ItemType Directory -Force -Path $outputDirectory | Out-Null
@@ -28,10 +28,10 @@ $common = @(
 ) + $references
 
 & $compiler '/target:winexe' ('/out:' + (Join-Path $outputDirectory 'PeripheralPeek.exe')) @common @sources
-if ($LASTEXITCODE -ne 0) { throw '托盘程序编译失败。' }
+if ($LASTEXITCODE -ne 0) { throw 'Tray application compilation failed.' }
 
 & $compiler '/target:exe' ('/out:' + (Join-Path $outputDirectory 'PeripheralPeek.Probe.exe')) @common @sources
-if ($LASTEXITCODE -ne 0) { throw '探测程序编译失败。' }
+if ($LASTEXITCODE -ne 0) { throw 'Probe application compilation failed.' }
 
 Copy-Item -LiteralPath (Join-Path $projectRoot 'README.md') -Destination (Join-Path $outputDirectory 'README.md') -Force
 
