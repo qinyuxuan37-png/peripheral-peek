@@ -1,0 +1,11 @@
+dist/
+logs/
+graphify-out/
+*.log
+*.pdb
+*.user
+.vs/
+.env
+.env.*
+settings.json
+Thumbs.db

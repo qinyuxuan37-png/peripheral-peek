@@ -1,0 +1,14 @@
+name: Build
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Compile
+        shell: powershell
+        run: .\build.ps1
+      - name: Device name smoke check (no hardware)
+        run: .\dist\PeripheralPeek.Probe.exe --test-device-names
